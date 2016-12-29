@@ -14,3 +14,12 @@
 
 ### Start script
 - `./legency-prepared.sh clean`
+- Enter the Number of Liferay EE portal as following:
+- ![ScreenShot](https://raw.githubusercontent.com/yunlinsun/shell-related/master/legency-prepared/screenshot1.png)
+- Enter the Patch name as the following. (Enter "No" if you don't want to install any Patch)
+- ![ScreenShot](https://raw.githubusercontent.com/yunlinsun/shell-related/master/legency-prepared/screenshot2.png)
+- Waiting for the script to be finished.
+
+### Note
+- All the zip files, patches, license files and jars must in this path `path/to/folder/`
+
