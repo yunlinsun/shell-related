@@ -22,4 +22,5 @@
 
 ### Note
 - All the zip files, patches, license files and jars must in this path `path/to/folder/`
+- Manual Edit your liferay.home in portal-ext if you want move the folder to anther path.
 
