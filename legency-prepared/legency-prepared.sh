@@ -128,6 +128,7 @@ else
 
 	echo "[INFO] Please Enter the Patch name that you want to install"
 	echo "[INFO] E.g: [64-6130] or [130-6210] or [10-7010] or [No]"
+	echo -n "$PS3"
 	read patchName
 
 	if [ $patchName="^[0-9]-6130" ]||[ $patchName="^[0-9]-6210" ]||[ $patchName="^[0-9]-7010" ]; then
