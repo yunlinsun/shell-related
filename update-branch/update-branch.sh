@@ -3,10 +3,10 @@ branchlist="ee-6.2.10 ee-6.2.x 7.0.x 7.0.x-private master master-private"
 sourcedir="/home/steven/project/portal"
 
 
-	echo "[Exec] cd $sourcedir"
-	cd $sourcedir
-	echo "[Exec] git fetch upstream"
-	git fetch upstream
+echo "[Exec] cd $sourcedir"
+cd $sourcedir
+echo "[Exec] git fetch upstream"
+git fetch upstream
 
 for branchname in $branchlist; 
 do
