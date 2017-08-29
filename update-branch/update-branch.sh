@@ -1,8 +1,6 @@
 #/bin/bash
-branchlist="ee-6.2.10 ee-6.2.x 7.0.x 7.0.x-private master master-private"
-sourcedir="/home/steven/project/portal"
 
-
+update(){
 echo "[Exec] cd $sourcedir"
 cd $sourcedir
 echo "[Exec] git fetch upstream"
@@ -28,3 +26,17 @@ done
 
 echo "[Exec] Done..."
 echo "[Info] The running time of script is $SECONDS seconds ..."
+}
+
+
+branchlist="master 7.0.x"
+sourcedir="/home/steven/project/portal/"
+update 
+
+branchlist="ee-6.2.10 ee-6.2.x 7.0.x-private master-private"
+sourcedir="/home/steven/project/7.0.x-private"
+update 
+
+# branchlist="master 7.0.x 6.2.x"
+# sourcedir="/home/steven/project/master/"
+# update 
