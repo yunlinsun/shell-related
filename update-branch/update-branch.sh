@@ -42,3 +42,7 @@ update
 branchlist="6.2.x 7.0.x master"
 sourcedir="/home/steven/project/master-portal"
 update 
+
+branchlist="ee-6.2.x ee-7.0.x 7.0.x-private"
+sourcedir="/home/steven/project/plugins-ee"
+update 
