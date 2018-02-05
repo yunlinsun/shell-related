@@ -1,9 +1,9 @@
-#Introducton
+# Introducton
 - This is a script for prepare your legacy bundle and auto install patch.
 - Reference: https://gist.github.com/anthony-chu/1503854a1efb5e743544#file-release-sh
 - Edited By: Steven Sun
 
-#Usage
+# Usage
 ### legacy-prepared.sh assumes the following file structure:  
 - `path/to/folder/legacy-prepared.sh`
 - `path/to/folder/portal-ext.properties`
