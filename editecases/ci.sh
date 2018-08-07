@@ -1,6 +1,6 @@
 #/bin/bash
-Casesfromsheet=/home/steven/project/script/poshi-script/Casesfromsheet.txt # Creat Casesfromsheet.txt manually, copy & paste value from google sheet.
-portalweb_dir=/home/steven/project/liferay-portal-ee/portal-web # Your portal-web dir
+Casesfromsheet="/home/steven/project/script/poshi-script/Casesfromsheet.txt" # Creat Casesfromsheet.txt manually, copy & paste value from google sheet.
+portalweb_dir="/home/steven/project/liferay-portal-ee/portal-web" # Your portal-web dir
 replacevalue='		<property name="portal.acceptance" value="stevensun" />' # Your property
 
 #############################
