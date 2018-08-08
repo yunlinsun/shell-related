@@ -2,8 +2,8 @@
 
 ###### For linux User ########
 Casesfromsheet="/home/steven/project/script/poshi-script/Casesfromsheet.txt" # Creat Casesfromsheet.txt manually, copy & paste value from google sheet.
-portalweb_dir="/home/steven/project/liferay-portal-ee/portal-web" # Your portal-web dir
-portal_acceptance='stevensun' # Your property
+portalweb_dir="/home/steven/project/liferay-portal-ee/portal-web" # Your portal-web dir ## Example for windows: portalweb_dir="/d/Git/portal/70/portal-web"
+portal_acceptance="stevensun" # Your value
 #############################
 ## Do not edit the following
 test_properties="$portalweb_dir/../test.properties"
