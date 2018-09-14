@@ -6,6 +6,8 @@ portalweb_dir="/home/steven/project/liferay-portal-ee/portal-web" # Your portal-
 portal_acceptance="stevensun" # Your value
 #############################
 ## Do not edit the following
+
+
 test_properties="$portalweb_dir/../test.properties"
 
 sed -i 's/LocalFile.//g' $Casesfromsheet
@@ -20,8 +22,8 @@ done < $Casesfromsheet
 
 set -v
 
-sed -i "1214s/^.*$/test.batch.run.property.query\[functional-tomcat80-mysql56-jdk8\]\=portal.acceptance\ \=\=\ $portal_acceptance/" $test_properties
-sed -i '1103,1180c test.batch.names\=functional-tomcat80-mysql56-jdk8' $test_properties
+sed -i "1242s/^.*$/    test.batch.run.property.query\[functional-tomcat80-mysql56-jdk8\]\=portal.acceptance\ \=\=\ $portal_acceptance/" $test_properties
+sed -i '1130,1208c test.batch.names\=functional-tomcat80-mysql56-jdk8' $test_properties
 sed -i '/test.batch.dist.app.servers=/,+6d' $test_properties
 
 
