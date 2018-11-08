@@ -1,48 +1,42 @@
 #/bin/bash
 
 update(){
-echo "[Exec] cd $sourcedir"
 cd $sourcedir
-echo "[Exec] git fetch upstream"
-git fetch upstream
-echo "[Exec] git fetch --progress --prune origin"
-git fetch --progress --prune origin
+git fetch upstream --no-tags
+
 
 for branchname in $branchlist; 
 do
-	echo "[Exec] git clean -fd"
 	git clean -fd
-	echo "[Exec] git checkout -f"
 	git checkout -f
-	echo "[Exec] git checkout $branchname"
 	git checkout $branchname
-	echo "[Exec] git clean -fd"
 	git clean -fd
-	echo "[Exec] git checkout -f"
 	git checkout -f
-	echo "[Exec] git merge --ff-only upstream/$branchname"
 	git merge --ff-only upstream/$branchname
-	# echo "[Exec] git push origin $branchname"
 	# git push origin $branchname
 done
 
-echo "[Exec] Done..."
 echo -e "[Info] The running time of script is $SECONDS seconds ...\n"
 }
 
+set -x
 
-branchlist="master 7.0.x"
-sourcedir="/home/steven/project/portal"
+branchlist="7.0.x 7.1.x master"
+sourcedir="/home/steven/project/liferay-portal"
 update
- 
-branchlist="ee-6.2.10 ee-6.2.x 7.0.x-private master-private"
-sourcedir="/home/steven/project/7.0.x-private"
-update 
 
-branchlist="6.2.x 7.0.x master"
-sourcedir="/home/steven/project/master-portal"
+branchlist="master-private 7.1.x-private 7.0.x-private ee-6.2.x ee-6.2.10 master 7.1.x 7.0.x"
+sourcedir="/home/steven/project/liferay-portal-ee"
 update 
 
 branchlist="ee-6.2.x ee-7.0.x 7.0.x-private"
 sourcedir="/home/steven/project/plugins-ee"
 update 
+
+# branchlist="master"
+# sourcedir="/home/steven/project/liferay-jenkins-ee"
+# update
+
+# branchlist="2.x master"
+# sourcedir="/home/steven/project/liferay-blade-samples"
+# update

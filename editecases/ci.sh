@@ -22,8 +22,8 @@ done < $Casesfromsheet
 
 set -v
 
-sed -i "1242s/^.*$/    test.batch.run.property.query\[functional-tomcat80-mysql56-jdk8\]\=portal.acceptance\ \=\=\ $portal_acceptance/" $test_properties
-sed -i '1130,1208c test.batch.names\=functional-tomcat80-mysql56-jdk8' $test_properties
+sed -i "1257s/^.*$/    test.batch.run.property.query\[functional-tomcat80-mysql56-jdk8\]\=portal.acceptance\ \=\=\ $portal_acceptance/" $test_properties
+sed -i '1145,1223c test.batch.names\=functional-tomcat80-mysql56-jdk8' $test_properties
 sed -i '/test.batch.dist.app.servers=/,+6d' $test_properties
 
 
