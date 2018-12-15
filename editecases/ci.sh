@@ -17,13 +17,17 @@ do
 	casename=`echo $line|cut -f1 -d "#"`
 	macroname=`echo $line|cut -f2 -d "#"`
 	file=$(echo $casename.testcase | xargs find $portalweb_dir -name) 
-	sed "/command name=\"$macroname\"/a\\		<property name=\"portal.acceptance\" value=\"$portal_acceptance\" />" -i $file
+	sed "/test $macroname /a\        property portal.acceptance \= \"$portal_acceptance\"\; " -i $file
 done < $Casesfromsheet
 
 set -v
 
-sed -i "1257s/^.*$/    test.batch.run.property.query\[functional-tomcat80-mysql56-jdk8\]\=portal.acceptance\ \=\=\ $portal_acceptance/" $test_properties
-sed -i '1145,1223c test.batch.names\=functional-tomcat80-mysql56-jdk8' $test_properties
+LINE_NUM1=$(sed -n '/    test.batch.names\=/=' $test_properties)
+LINE_NUM2=$(sed -n '/    wsdd-builder-jdk8/=' $test_properties)
+sed -i "${LINE_NUM1},${LINE_NUM2}c test.batch.names\=functional-smoke-tomcat90-mysql57-jdk8" $test_properties
+
+LINE_NUM3=$(sed -n '/test.batch.run.property.query\[functional-smoke-tomcat90-mysql57-jdk8\]\=/=' $test_properties)
+sed -i "${LINE_NUM3}s/^.*$/        test.batch.run.property.query\[functional-smoke-tomcat90-mysql57-jdk8\]\=portal.acceptance\ \=\=\ $portal_acceptance/" $test_properties
 sed -i '/test.batch.dist.app.servers=/,+6d' $test_properties
 
 
