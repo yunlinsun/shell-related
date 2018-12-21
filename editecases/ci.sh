@@ -16,7 +16,7 @@ while read line || [[ -n ${line} ]]
 do
 	casename=`echo $line|cut -f1 -d "#"`
 	macroname=`echo $line|cut -f2 -d "#"`
-	file=$(echo $casename.testcase | xargs find $portalweb_dir -name) 
+	file=$(echo $casename.testcase | xargs find $portalweb_dir -iname) 
 	sed "/test $macroname /a\        property portal.acceptance \= \"$portal_acceptance\"\; " -i $file
 done < $Casesfromsheet
 
