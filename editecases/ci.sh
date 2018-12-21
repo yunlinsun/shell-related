@@ -12,7 +12,7 @@ test_properties="$portalweb_dir/../test.properties"
 
 sed -i 's/LocalFile.//g' $Casesfromsheet
 
-while read line 
+while read line || [[ -n ${line} ]] 
 do
 	casename=`echo $line|cut -f1 -d "#"`
 	macroname=`echo $line|cut -f2 -d "#"`
