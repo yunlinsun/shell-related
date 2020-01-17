@@ -1,6 +1,6 @@
 #/bin/bash
 
-###### For linux User ########
+###### Edit to your own ########
 Casesfromsheet="/home/steven/project/script/poshi-script/Casesfromsheet.txt" # Creat Casesfromsheet.txt manually, copy & paste value from google sheet.
 portalweb_dir="/home/steven/project/liferay-portal/portal-web" # Your portal-web dir ## Example for windows: portalweb_dir="/d/Git/portal/70/portal-web"
 portal_acceptance="stevensun" # Your value
