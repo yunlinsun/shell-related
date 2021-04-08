@@ -2,7 +2,7 @@
 
 ###### Edit to your own ########
 Casesfromsheet="/home/steven/project/script/poshi-script/Casesfromsheet.txt" # Creat Casesfromsheet.txt manually, copy & paste value from google sheet.
-portal_dir="/home/steven/project/liferay-portal-ee-7.3.x" # Your portal dir ## Example for windows: portal_dir="/d/liferay-portal"
+portal_dir="/home/steven/project/liferay-portal-ee-7.2.x" # Your portal dir ## Example for windows: portal_dir="/d/liferay-portal"
 portal_acceptance="stevensun" # Your value
 #############################
 ## Do not edit the following
