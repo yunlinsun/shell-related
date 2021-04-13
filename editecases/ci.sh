@@ -39,15 +39,15 @@ sed -i "${LINE_NUM1},${LINE_NUM2}c \    test.batch.run.property.query[functional
 	(portal.acceptance == ${portal_acceptance})" $test_properties
 
 LINE_NUM3=$(grep -n "test.batch.names\[acceptance-ce\]\=" $test_properties | cut -f1 -d:)
-LINE_NUM4=$(grep -n " wsdd-builder-jdk8" $test_properties | cut -f1 -d:)
-sed -i "${LINE_NUM3},${LINE_NUM4}d" $test_properties
+LINE_NUM4=$(($(grep -n " Acceptance (DXP)" $test_properties | cut -f1 -d:)-3))
+sed -i "${LINE_NUM3},${LINE_NUM4}c \    test.batch.names\[acceptance-ce\]\=functional-tomcat90-mysql57-jdk8" $test_properties
 
 LINE_NUM5=$(grep -n "test.batch.names\[acceptance-dxp\]\=" $test_properties | cut -f1 -d:)
 LINE_NUM6=$(grep -n " functional-tomcat90-sqlserver2019-jdk8" $test_properties | cut -f1 -d:)
 # LINE_NUM4=$(grep -n -m 1 "#modules-integration-sybase160-jdk8" $test_properties |sed  's/\([0-9]*\).*/\1/')
-sed -i "${LINE_NUM5},${LINE_NUM6}c \    test.batch.names\[acceptance-dxp\]\=functional-tomcat90-mysql57-jdk8" $test_properties
+sed -i "${LINE_NUM5},${LINE_NUM6}c \    test.batch.names\[acceptance-dxp\]\=\$\{test.batch.names\[acceptance-ce\]\}" $test_properties
 
-sed -i '/test.batch.dist.app.servers=/,+6d' $test_properties
+sed -i "/test.batch.dist.app.servers\[bundles\]\=/,+6d" $test_properties
 
 # cd $portal_dir/../modules
 # ../gradlew -b util.gradle formatSourceLocalChanges
