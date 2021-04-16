@@ -2,13 +2,13 @@
 
 ###### Edit to your own ########
 Casesfromsheet="/home/steven/project/script/poshi-script/Casesfromsheet.txt" # Creat Casesfromsheet.txt manually, copy & paste value from google sheet.
-portal_dir="/home/steven/project/liferay-portal-ee-7.1.x/portal-web" # Your portal-web dir ## Example for windows: portal_dir="/d/liferay-portal/portal-web"
+portal_dir="/home/steven/project/liferay-portal-ee-7.1.x" # Your portal-web dir ## Example for windows: portal_dir="/d/liferay-portal/portal-web"
 portal_acceptance="stevensun" # Your value
 #############################
 ## Do not edit the following
 
 
-test_properties="$portal_dir/../test.properties"
+test_properties="$portal_dir/test.properties"
 
 sed -i 's/LocalFile.//g' $Casesfromsheet
 
@@ -16,7 +16,7 @@ while read line || [[ -n ${line} ]]
 do
 	casename=`echo $line|cut -f1 -d "#"`
 	macroname=`echo $line|cut -f2 -d "#"`
-	file=$(echo $casename.testcase | xargs find $portal_dir -iname)
+	file=$(echo $casename.testcase | xargs find $portal_dir/portal-web $portal_dir/modules -iname)
 
 	string=`grep -A 10 "test $macroname " $file`
 
