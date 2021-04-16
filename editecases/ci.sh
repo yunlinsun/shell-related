@@ -10,44 +10,51 @@ portal_acceptance="stevensun" # Your value
 
 test_properties="$portal_dir/test.properties"
 
-# sed -i 's/LocalFile.//g' $Casesfromsheet
+sed -i 's/LocalFile.//g' $Casesfromsheet
 
-# while read line || [[ -n ${line} ]] 
-# do
-# 	casename=`echo $line|cut -f1 -d "#"`
-# 	macroname=`echo $line|cut -f2 -d "#"`
-# 	file=$(echo $casename.testcase | xargs find $portal_dir -iname)
+while read line || [[ -n ${line} ]] 
+do
+	casename=`echo $line|cut -f1 -d "#"`
+	macroname=`echo $line|cut -f2 -d "#"`
+	file=$(echo $casename.testcase | xargs find $portal_dir/portal-web $portal_dir/modules -iname)
 
-# 	string=`grep -A 10 "test $macroname" $file`
+	string=`grep -A 10 "test $macroname" $file`
 
-# 	if [[ $string =~ "portal.acceptance" ]]; 
-# 	then
-# 		acceptance_line_start=$(sed -n "/test $macroname/=" $file)
-# 		acceptance_line_end=`echo $((acceptance_line_start+10))`
-# 		sed -i "${acceptance_line_start},${acceptance_line_end}s/portal.acceptance =.*/portal.acceptance = \"$portal_acceptance\"\;/g" $file
-# 	else
-# 		sed "/test $macroname /a \ \ \ \ \ \ \ \ property portal.acceptance \= \"$portal_acceptance\"\; " -i $file	
-# 	fi
-# done < $Casesfromsheet
+	if [[ $string =~ "portal.acceptance" ]]; 
+	then
+		acceptance_line_start=$(sed -n "/test $macroname/=" $file)
+		acceptance_line_end=`echo $((acceptance_line_start+10))`
+		sed -i "${acceptance_line_start},${acceptance_line_end}s/portal.acceptance =.*/portal.acceptance = \"$portal_acceptance\"\;/g" $file
+	else
+		sed "/test $macroname /a \ \ \ \ \ \ \ \ property portal.acceptance \= \"$portal_acceptance\"\; " -i $file	
+	fi
+done < $Casesfromsheet
 
-LINE_NUM1=$(grep -n "subrepository-validation" $test_properties | cut -f1 -d:)
-LINE_NUM2=$(($(grep -n "sequential" $test_properties | cut -f1 -d:)-2))
+LINE_NUM1=`grep -n "test.batch.run.property.query\[functional-tomcat80-mysql56-jdk8\]\=" $test_properties | cut -f1 -d:`
+let LINE_NUM2=LINE_NUM1+3
 
 sed -i "${LINE_NUM1},${LINE_NUM2}c \    test.batch.run.property.query[functional-tomcat80-mysql56-jdk8]=\\\\ \\
 	(app.server.types == null OR app.server.types ~ tomcat) AND \\\\ \\
 	(database.types == null OR database.types ~ mysql) AND \\\\ \\
 	(portal.acceptance == ${portal_acceptance})" $test_properties
 
-LINE_NUM3=$(grep -n "test.batch.names\[acceptance-ce\]\=" $test_properties | cut -f1 -d:)
-LINE_NUM4=$(($(grep -n " Acceptance (DXP)" $test_properties | cut -f1 -d:)-3))
+LINE_NUM3=`grep -n "test.batch.names\[acceptance-ce\]\=" $test_properties | cut -f1 -d:`
+LINE_NUM4TEMP=`grep -n " # Acceptance (DXP)" $test_properties | cut -f1 -d:`
+let LINE_NUM4=LINE_NUM4TEMP-3
 sed -i "${LINE_NUM3},${LINE_NUM4}c \    test.batch.names\[acceptance-ce\]\=functional-tomcat80-mysql56-jdk8" $test_properties
 
-LINE_NUM5=$(grep -n "test.batch.names\[acceptance-dxp\]\=" $test_properties | cut -f1 -d:)
-LINE_NUM6=$(($(grep -n " # Analytics Cloud" $test_properties | cut -f1 -d:)-3))
-# LINE_NUM4=$(grep -n -m 1 "#modules-integration-sybase160-jdk8" $test_properties |sed  's/\([0-9]*\).*/\1/')
+LINE_NUM5=`grep -n "test.batch.names\[acceptance-dxp\]\=" $test_properties | cut -f1 -d:`
+let LINE_NUM6=LINE_NUM5+12
 sed -i "${LINE_NUM5},${LINE_NUM6}c \    test.batch.names\[acceptance-dxp\]\=\$\{test.batch.names\[acceptance-ce\]\}" $test_properties
 
-sed -i "/test.batch.dist.app.servers\[bundles\]\=/,+6d" $test_properties
+bundle_line_number1=`grep -n "test.batch.dist.app.servers\[bundles\]\=" $test_properties | cut -f1 -d:`
+let bundle_line_number2=bundle_line_number1+5
+sed -i "${bundle_line_number1},${bundle_line_number2}c \ test.batch.dist.app.servers\[bundles\]\=" $test_properties
+
+dist_number1=`grep -n "test.batch.dist.app.servers\=" $test_properties | cut -f1 -d:`
+let dist_number2=dist_number1+6
+sed -i "${dist_number1},${dist_number2}c \test.batch.dist.app.servers\=tomcat" $test_properties
+
 
 # cd $portal_dir/../modules
 # ../gradlew -b util.gradle formatSourceLocalChanges
