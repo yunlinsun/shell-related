@@ -18,12 +18,12 @@ do
 	macroname=`echo $line|cut -f2 -d "#"`
 	file=$(echo $casename.testcase | xargs find $portal_dir/portal-web $portal_dir/modules -iname)
 
-	string=`grep -A 10 "test $macroname" $file`
+	string=`grep -A 10 "test $macroname " $file`
 
 	if [[ $string =~ "portal.acceptance" ]]; 
 	then
-		acceptance_line_start=$(sed -n "/test $macroname/=" $file)
-		acceptance_line_end=`echo $((acceptance_line_start+10))`
+		acceptance_line_start=$(sed -n "/test $macroname /=" $file)
+		let acceptance_line_end=acceptance_line_start+10
 		sed -i "${acceptance_line_start},${acceptance_line_end}s/portal.acceptance =.*/portal.acceptance = \"$portal_acceptance\"\;/g" $file
 	else
 		sed "/test $macroname /a \ \ \ \ \ \ \ \ property portal.acceptance \= \"$portal_acceptance\"\; " -i $file	
