@@ -32,11 +32,7 @@ done < $Casesfromsheet
 
 LINE_NUM1=`grep -n "test.batch.run.property.query\[functional-tomcat90-mysql57-jdk8\]\=" $test_properties | cut -f1 -d:`
 let LINE_NUM2=LINE_NUM1+3
-
-sed -i "${LINE_NUM1},${LINE_NUM2}c \    test.batch.run.property.query[functional-tomcat90-mysql57-jdk8]=\\\\ \\
-	(app.server.types == null OR app.server.types ~ tomcat) AND \\\\ \\
-	(database.types == null OR database.types ~ mysql) AND \\\\ \\
-	(portal.acceptance == ${portal_acceptance})" $test_properties
+sed -i "${LINE_NUM2}s/true/$portal_acceptance/" $test_properties
 
 LINE_NUM3=`grep -n "test.batch.names\[acceptance-ce\]\=" $test_properties | cut -f1 -d:`
 LINE_NUM4TEMP=`grep -n " # Acceptance (DXP)" $test_properties | cut -f1 -d:`
