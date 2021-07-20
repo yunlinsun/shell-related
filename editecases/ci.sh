@@ -18,12 +18,12 @@ do
 	macroname=`echo $line|cut -f2 -d "#"`
 	file=$(echo $casename.testcase | xargs find $portal_dir/portal-web $portal_dir/modules -iname)
 
-	string=`grep -A 10 "test $macroname" $file`
+	string=`grep -A 10 "test $macroname " $file`
 
 	if [[ $string =~ "portal.acceptance" ]]; 
 	then
-		acceptance_line_start=$(sed -n "/test $macroname/=" $file)
-		acceptance_line_end=`echo $((acceptance_line_start+10))`
+		acceptance_line_start=$(sed -n "/test $macroname /=" $file)
+		let acceptance_line_end=acceptance_line_start+10
 		sed -i "${acceptance_line_start},${acceptance_line_end}s/portal.acceptance =.*/portal.acceptance = \"$portal_acceptance\"\;/g" $file
 	else
 		sed "/test $macroname /a \ \ \ \ \ \ \ \ property portal.acceptance \= \"$portal_acceptance\"\; " -i $file	
@@ -32,15 +32,7 @@ done < $Casesfromsheet
 
 LINE_NUM1=`grep -n "test.batch.run.property.query\[functional-tomcat80-mysql56-jdk8\]\=" $test_properties | cut -f1 -d:`
 let LINE_NUM2=LINE_NUM1+3
-<<<<<<< HEAD
-
-sed -i "${LINE_NUM1},${LINE_NUM2}c \    test.batch.run.property.query[functional-tomcat80-mysql56-jdk8]=\\\\ \\
-	(app.server.types == null OR app.server.types ~ tomcat) AND \\\\ \\
-	(database.types == null OR database.types ~ mysql) AND \\\\ \\
-	(portal.acceptance == ${portal_acceptance})" $test_properties
-=======
 sed -i "${LINE_NUM2}s/true/$portal_acceptance/" $test_properties
->>>>>>> c6a06e3... LRQA-66570 Fix extra space issue
 
 LINE_NUM3=`grep -n "test.batch.names\[acceptance-ce\]\=" $test_properties | cut -f1 -d:`
 LINE_NUM4TEMP=`grep -n " # Acceptance (DXP)" $test_properties | cut -f1 -d:`
