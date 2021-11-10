@@ -16,9 +16,9 @@ while read line || [[ -n ${line} ]]
 do
 	casename=`echo $line|cut -f1 -d "#"`
 	macroname=`echo $line|cut -f2 -d "#"`
-	file=$(echo $casename.testcase | xargs find $portal_dir/portal-web $portal_dir/modules -iname)
+	file=$(echo $casename.testcase | xargs find $portal_dir/portal-web -iname)
 
-	string=`grep -A 10 "test $macroname " $file`
+	string=`grep -A 5 "test $macroname " $file`
 
 	if [[ $string =~ "portal.acceptance" ]]; 
 	then
