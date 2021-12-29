@@ -2,7 +2,7 @@
 
 ###### Edit to your own ########
 casesfromcsv="/home/steven/project/script/poshi-script/casesfromcsv.txt" # Creat casesfromcsv.txt manually, copy & paste value from case_results.csv.
-portal_dir="/home/steven/project/liferay-portal-ee-7.3.x" # Your portal dir ## Example for windows: portal_dir="/d/liferay-portal"
+portal_dir="/home/steven/project/liferay-portal" # Your portal dir ## Example for windows: portal_dir="/d/liferay-portal"
 portal_acceptance="stevensun" # Your value
 
 
