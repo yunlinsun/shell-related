@@ -1,16 +1,18 @@
 #/bin/bash
 
 ###### Edit to your own ########
-Casesfromsheet="/home/steven/project/script/poshi-script/Casesfromsheet.txt" # Creat Casesfromsheet.txt manually, copy & paste value from google sheet.
-portal_dir="/home/steven/project/liferay-portal-ee-7.0.x" # Your portal dir ## Example for windows: portal_dir="/d/liferay-portal"
+casesfromcsv="/home/steven/project/script/poshi-script/casesfromcsv.txt" # Creat casesfromcsv.txt manually, copy & paste value from case_results.csv.
+portal_dir="/home/steven/project/liferay-portal-ee-7.0.x" # Your portal dir ## Example for windows: portal_dir="/d/liferay-portal-ee-7.0.x"
 portal_acceptance="stevensun" # Your value
+
+
 #############################
 ## Do not edit the following
 
 
 test_properties="$portal_dir/test.properties"
 
-sed -i 's/LocalFile.//g' $Casesfromsheet
+sed -i 's/LocalFile.//g' $casesfromcsv
 
 while read line || [[ -n ${line} ]] 
 do
@@ -28,7 +30,7 @@ do
 	else
 		sed "/test $macroname /a \ \ \ \ \ \ \ \ property portal.acceptance \= \"$portal_acceptance\"\; " -i $file	
 	fi
-done < $Casesfromsheet
+done < $casesfromcsv
 
 LINE_NUM1=`grep -n "test.batch.run.property.query\[functional-tomcat80-mysql56-jdk8\]\=" $test_properties | cut -f1 -d:`
 let LINE_NUM2=LINE_NUM1+3
