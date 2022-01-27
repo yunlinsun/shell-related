@@ -18,7 +18,7 @@ while read line || [[ -n ${line} ]]
 do
 	casename=`echo $line|cut -f1 -d "#"`
 	macroname=`echo $line|cut -f2 -d "#"`
-	file=$(echo $casename.testcase | xargs find $portal_dir/portal-web -iname)
+	file=$(echo $casename.testcase | xargs find $portal_dir/portal-web $portal_dir/modules -iname)
 
 	string=`grep -A 10 "test $macroname " $file`
 
