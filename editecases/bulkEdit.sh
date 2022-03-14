@@ -16,6 +16,7 @@ sed -i 's/LocalFile.//g' $casesfromcsv
 
 while read line || [[ -n ${line} ]] 
 do
+	echo "Updating $line"
 	casename=`echo $line|cut -f1 -d "#"`
 	macroname=`echo $line|cut -f2 -d "#"`
 	file=$(echo $casename.testcase | xargs find $portal_dir/portal-web -iname)
@@ -32,18 +33,11 @@ do
 	fi
 done < $casesfromcsv
 
+sed -i "s/test.batch.names\=\${test.batch.names\[acceptance-dxp\]}/test.batch.names\=functional-tomcat80-mysql56-jdk8/g" $test_properties
+
 LINE_NUM1=`grep -n "test.batch.run.property.query\[functional-tomcat80-mysql56-jdk8\]\=" $test_properties | cut -f1 -d:`
 let LINE_NUM2=LINE_NUM1+3
 sed -i "${LINE_NUM2}s/true/$portal_acceptance/" $test_properties
-
-LINE_NUM3=`grep -n "test.batch.names\[acceptance-ce\]\=" $test_properties | cut -f1 -d:`
-LINE_NUM4TEMP=`grep -n " # Acceptance (DXP)" $test_properties | cut -f1 -d:`
-let LINE_NUM4=LINE_NUM4TEMP-3
-sed -i "${LINE_NUM3},${LINE_NUM4}c \    test.batch.names\[acceptance-ce\]\=functional-tomcat80-mysql56-jdk8" $test_properties
-
-LINE_NUM5=`grep -n "test.batch.names\[acceptance-dxp\]\=" $test_properties | cut -f1 -d:`
-let LINE_NUM6=LINE_NUM5+12
-sed -i "${LINE_NUM5},${LINE_NUM6}c \    test.batch.names\[acceptance-dxp\]\=\$\{test.batch.names\[acceptance-ce\]\}" $test_properties
 
 bundle_line_number1=`grep -n "test.batch.dist.app.servers\[bundles\]\=" $test_properties | cut -f1 -d:`
 let bundle_line_number2=bundle_line_number1+5
@@ -52,9 +46,5 @@ sed -i "${bundle_line_number1},${bundle_line_number2}c \ test.batch.dist.app.ser
 dist_number1=`grep -n "test.batch.dist.app.servers\=" $test_properties | cut -f1 -d:`
 let dist_number2=dist_number1+6
 sed -i "${dist_number1},${dist_number2}c \test.batch.dist.app.servers\=tomcat" $test_properties
-
-
-# cd $portal_dir/../modules
-# ../gradlew -b util.gradle formatSourceLocalChanges
 
 echo "The script has ran $SECONDS seconds."
