@@ -36,7 +36,7 @@ done < $casesfromcsv
 sed -i "s/test.batch.names\=\${test.batch.names\[acceptance-dxp\]}/test.batch.names\=functional-tomcat80-mysql56-jdk8/g" $test_properties
 
 LINE_NUM1=`grep -n "test.batch.run.property.query\[functional-tomcat80-mysql56-jdk8\]\=" $test_properties | cut -f1 -d:`
-let LINE_NUM2=LINE_NUM1+3
+let LINE_NUM2=LINE_NUM1+9
 sed -i "${LINE_NUM2}s/true/$portal_acceptance/" $test_properties
 
 bundle_line_number1=`grep -n "test.batch.dist.app.servers\[bundles\]\=" $test_properties | cut -f1 -d:`
